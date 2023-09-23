@@ -60,10 +60,12 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-
-
-
-
+@Composable
+fun AffirmationsApp() {
+    AffirmationList(
+        affirmationList = Datasource().loadAffirmations(),
+    )
+}
 
 
 @Composable
@@ -89,24 +91,23 @@ fun AffirmationCard(affirmation: Affirmation, modifier: Modifier = Modifier) {
     }
 }
 
+
 @Preview
 @Composable
 private fun AffirmationCardPreview() {
-
+    AffirmationCard(Affirmation(R.string.affirmation1, R.drawable.image1))
 }
+
 
 @Composable
 fun AffirmationList(affirmationList: List<Affirmation>, modifier: Modifier = Modifier) {
     LazyColumn(modifier = modifier) {
-        items(affirmationList) {affirmation ->
-
+        items(affirmationList) { affirmation ->
+            AffirmationCard(
+                affirmation = affirmation,
+                modifier = Modifier.padding(8.dp)
+            )
         }
     }
 }
 
-@Composable
-fun AffirmationsApp() {
-    AffirmationList(
-        affirmationList = Datasource().loadAffirmations(),
-    )
-}
